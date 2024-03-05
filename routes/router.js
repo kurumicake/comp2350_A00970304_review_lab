@@ -15,13 +15,15 @@ router.get('/', async (req, res) => {
 });
 
 // Display reviews for a specific restaurant
-router.get('/reviews/:restaurantId', async (req, res) => {
-    console.log("Fetching reviews for restaurant");
-    const { restaurantId } = req.params;
+router.get('/reviews', async (req, res) => {
+    const restaurantId = req.query.restaurantId;
+    if (!restaurantId) {
+        return res.status(400).send('Restaurant ID is required');
+    }
+
     try {
-        const reviews = await dbModel.getReviewsForRestaurant(restaurantId);
-        // Assuming getReviewsForRestaurant returns [rows, fields]
-        res.render('reviews', { reviews: reviews[0], restaurantId });
+        const reviews = await dbModel.getReviewsByRestaurantId(restaurantId);
+        res.render('reviews', { reviews, restaurantId }); // Assuming you have a 'reviews.ejs' template
     } catch (err) {
         console.error("Error reading reviews from database", err);
         res.render('error', { message: 'Error reading reviews from database' });
