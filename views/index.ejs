@@ -17,8 +17,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Description</th>
-                                <th>&nbsp;</th>
-                                <th>&nbsp;</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,14 +27,12 @@
                                     <td><%= restaurant.description %></td>
                                     <td>
                                         <a href="/deleteRestaurant?id=<%= restaurant.restaurant_id %>" class="button is-danger is-small">
-                                            <span class="icon is-small">
+                                            <span class="icon">
                                                 <i class="fas fa-trash"></i>
                                             </span>
                                         </a>
-                                    </td>
-                                    <td>
                                         <a href="/reviews?restaurantId=<%= restaurant.restaurant_id %>" class="button is-link is-small">
-                                            <span class="icon is-small">
+                                            <span class="icon">
                                                 <i class="fas fa-star"></i>
                                             </span>
                                         </a>
@@ -45,7 +42,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4">Total Restaurants: <%= restaurants.length %></td>
+                                <td colspan="3">Total Restaurants: <%= restaurants.length %></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -53,7 +50,7 @@
             <% } else { %>
                 <p>No restaurants available.</p>
             <% } %>
-            <form action="/addRestaurant" method="post">
+            <form action="/addRestaurant" method="post" class="mt-5">
                 <div class="field is-horizontal">
                     <div class="field-label is-normal">
                         <label class="label">Add New Restaurant</label>
@@ -70,12 +67,14 @@
                             </p>
                         </div>
                         <div class="field">
-                            <button class="button is-link" type="submit">
-                                <span>Add</span>
-                                <span class="icon is-small">
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                            </button>
+                            <p class="control">
+                                <button class="button is-link" type="submit">
+                                    <span>Add</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                </button>
+                            </p>
                         </div>
                     </div>
                 </div>
