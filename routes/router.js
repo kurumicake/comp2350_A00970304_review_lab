@@ -5,8 +5,10 @@ const dbModel = require('../databaseAccessLayer'); // Adjusted to use require fo
 router.get('/', async (req, res) => {
     console.log("Home page hit");
     try {
-        const restaurants = await dbModel.getAllRestaurants();
-        res.render('index', { restaurants }); // Use the updated EJS template name if different
+        // Assuming getAllRestaurants() returns an array where the first element is the rows
+        const result = await dbModel.getAllRestaurants();
+        const restaurants = result[0]; // Extract the rows assuming result is [rows, fields]
+        res.render('index', { restaurants }); // Pass the rows to the EJS template
     } catch (err) {
         console.error("Error reading from database", err);
         res.render('error', { message: 'Error reading from database' });
