@@ -69,12 +69,17 @@ router.get('/deleteRestaurant/:restaurantId', async (req, res) => {
 
 // Add a new review for a restaurant
 router.post('/addReview/:restaurantId', async (req, res) => {
-    const restaurantId = req.params.restaurantId; 
-    const reviewData = req.body;
-    reviewData.restaurantId = restaurantId;
+    const restaurantId = req.params.restaurantId;
+   
+    const reviewData = {
+        restaurantId: restaurantId,
+        reviewer_name: req.body.reviewerName,
+        details: req.body.details,
+        rating: req.body.rating,
+    };
 
     try {
-        const success = await dbModel.addReview(reviewData); 
+        const success = await dbModel.addReview(reviewData);
         if (success) {
             res.redirect(`/reviews?restaurantId=${restaurantId}`);
         } else {
