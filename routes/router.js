@@ -70,11 +70,11 @@ router.get('/deleteRestaurant/:restaurantId', async (req, res) => {
 // Add a new review for a restaurant
 router.post('/addReview/:restaurantId', async (req, res) => {
     console.log("Add review form submit");
-    const { restaurantId } = req.params;
+    const restaurantId = req.params.restaurantId;
     try {
-        const success = await dbModel.addReview(req.body, restaurantId);
+        const success = await dbModel.addReview(req.body, restaurantId); 
         if (success) {
-            res.redirect(`/reviews/${restaurantId}`);
+            res.redirect(`/reviews?restaurantId=${restaurantId}`);
         } else {
             console.error("Error writing to database");
             res.render('error', { message: "Error writing to database" });

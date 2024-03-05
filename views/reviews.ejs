@@ -47,7 +47,7 @@
             <% } else { %>
                 <p>No reviews available.</p>
             <% } %>
-            <form action="/addReview?restaurantId=<%= restaurantId %>" method="post" class="mt-5">
+            <form action="/addReview/<%= restaurantId %>" method="post">
                 <div class="title">Add New Review</div>
                 <div class="field">
                     <label class="label">Reviewer Name</label>
