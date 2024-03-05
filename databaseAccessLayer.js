@@ -39,23 +39,16 @@ async function addRestaurant(postData) {
 }
 
 async function deleteRestaurant(restaurantId) {
-    // First, delete all reviews associated with the restaurant
-    let sqlDeleteReviews = `
-        DELETE FROM review
-        WHERE restaurant_id = :restaurantId
-    `;
-    let sqlDeleteRestaurant = `
-        DELETE FROM restaurant
-        WHERE restaurant_id = :restaurantId
-    `;
+    let sqlDeleteReviews = `DELETE FROM review WHERE restaurant_id = ?`;
+    let sqlDeleteRestaurant = `DELETE FROM restaurant WHERE restaurant_id = ?`;
     
     try {
-        await database.query(sqlDeleteReviews, { restaurantId });
-        await database.query(sqlDeleteRestaurant, { restaurantId });
+        await database.query(sqlDeleteReviews, [restaurantId]);
+        await database.query(sqlDeleteRestaurant, [restaurantId]);
         return true;
     }
     catch (err) {
-        console.log(err);
+        console.log("Error during deletion from database:", err);
         return false;
     }
 }

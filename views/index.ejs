@@ -26,11 +26,11 @@
                                     <td><%= restaurant.name %></td>
                                     <td><%= restaurant.description %></td>
                                     <td>
-                                        <a href="/deleteRestaurant?id=<%= restaurant.restaurant_id %>" class="button is-danger is-small">
-                                            <span class="icon">
-                                                <i class="fas fa-trash"></i>
-                                            </span>
-                                        </a>
+                                      <a href="/deleteRestaurant/<%= restaurant.restaurant_id %>" class="button is-danger is-small">
+                                        <span class="icon">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                    </a>
                                         <a href="/reviews?restaurantId=<%= restaurant.restaurant_id %>" class="button is-link is-small">
                                             <span class="icon">
                                                 <i class="fas fa-star"></i>

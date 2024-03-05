@@ -12,10 +12,10 @@ const dbConfigRender = {
 };
 
 const dbConfigLocal = {
-	host: "sql.freedb.tech",
-	user: "freedb_cwan_main",
-	password: "n!?hTMRsJ2GNPM*",
-	database: "Free DB",
+	host: "localhost",
+	user: "root",
+	password: "Coding@626929a44",
+	database: "restaurant_review",
 	multipleStatements: false,
 	namedPlaceholders: true
 };

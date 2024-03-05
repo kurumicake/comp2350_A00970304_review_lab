@@ -50,9 +50,10 @@ router.post('/addRestaurant', async (req, res) => {
 });
 
 // Delete a restaurant and its reviews
-router.get('/deleteRestaurant/:restaurantId', async (req, res) => {
+router.get('/deleteRestaurant/:id', async (req, res) => {
     console.log("Delete restaurant request");
-    const { restaurantId } = req.params;
+    // Use req.params.id to access URL parameters
+    const restaurantId = req.params.id; 
     try {
         const success = await dbModel.deleteRestaurant(restaurantId);
         if (success) {
