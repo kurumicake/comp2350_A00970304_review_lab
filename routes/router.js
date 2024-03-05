@@ -22,7 +22,7 @@ router.get('/reviews', async (req, res) => {
     }
 
     try {
-        const [reviews] = await dbModel.getReviewsByRestaurantId(restaurantId); // Destructure to get just the results
+        const [reviews] = await dbModel.getReviewsByRestaurant(restaurantId); // Destructure to get just the results
         console.log(reviews); // Should log the array of TextRow objects
         res.render('reviews', { reviews, restaurantId });
     } catch (err) {
