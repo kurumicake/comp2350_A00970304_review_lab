@@ -22,14 +22,15 @@ router.get('/reviews', async (req, res) => {
     }
 
     try {
-        const reviews = await dbModel.getReviewsByRestaurant(restaurantId);
-		console.log(reviews);
-        res.render('reviews', { reviews, restaurantId }); // Assuming you have a 'reviews.ejs' template
+        const [reviews] = await dbModel.getReviewsByRestaurantId(restaurantId); // Destructure to get just the results
+        console.log(reviews); // Should log the array of TextRow objects
+        res.render('reviews', { reviews, restaurantId });
     } catch (err) {
         console.error("Error reading reviews from database", err);
         res.render('error', { message: 'Error reading reviews from database' });
     }
 });
+
 
 // Add a new restaurant
 router.post('/addRestaurant', async (req, res) => {
