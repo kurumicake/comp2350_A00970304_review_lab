@@ -84,6 +84,7 @@ async function addReview(postData) {
         INSERT INTO review (restaurant_id, reviewer_name, details, rating)
         VALUES (:restaurantId, :reviewerName, :details, :rating);
     `;
+
     let params = {
         restaurantId: postData.restaurantId,
         reviewerName: postData.reviewerName,
@@ -100,6 +101,7 @@ async function addReview(postData) {
         return false;
     }
 }
+
 
 async function deleteReview(reviewId) {
     let sqlDeleteReview = `
