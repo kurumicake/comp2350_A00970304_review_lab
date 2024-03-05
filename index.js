@@ -22,7 +22,6 @@ async function printMySQLVersion() {
 	try {
 		const results = await database.query(sqlQuery);
 		console.log("Successfully connected to MySQL");
-		console.log(results[0]);
 		return true;
 	}
 	catch (err) {
