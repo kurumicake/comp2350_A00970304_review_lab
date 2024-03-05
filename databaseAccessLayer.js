@@ -8,14 +8,14 @@ async function getAllRestaurants() {
     
     try {
         const results = await database.query(sqlQuery);
-        console.log(results);
+		console.log("Query results:", results);
         return results;
     }
     catch (err) {
         console.log("Error selecting from restaurant table");
         console.log(err);
         return null;
-    }
+    }s
 }
 
 async function addRestaurant(postData) {
