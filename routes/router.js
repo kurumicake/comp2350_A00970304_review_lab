@@ -1,17 +1,30 @@
 const router = require('express').Router();
-const dbModel = require('../databaseAccessLayer'); // Adjusted to use require for consistency
+const dbModel = require('../databaseAccessLayer');
 
-// Display all restaurants
+// Display all restaurants with links to view their reviews
 router.get('/', async (req, res) => {
     console.log("Home page hit");
     try {
-        // Assuming getAllRestaurants() returns an array where the first element is the rows
         const result = await dbModel.getAllRestaurants();
-        const restaurants = result[0]; // Extract the rows assuming result is [rows, fields]
-        res.render('index', { restaurants }); // Pass the rows to the EJS template
+        const restaurants = result[0];
+        res.render('index', { restaurants });
     } catch (err) {
         console.error("Error reading from database", err);
         res.render('error', { message: 'Error reading from database' });
+    }
+});
+
+// Display reviews for a specific restaurant
+router.get('/reviews/:restaurantId', async (req, res) => {
+    console.log("Fetching reviews for restaurant");
+    const { restaurantId } = req.params;
+    try {
+        const reviews = await dbModel.getReviewsForRestaurant(restaurantId);
+        // Assuming getReviewsForRestaurant returns [rows, fields]
+        res.render('reviews', { reviews: reviews[0], restaurantId });
+    } catch (err) {
+        console.error("Error reading reviews from database", err);
+        res.render('error', { message: 'Error reading reviews from database' });
     }
 });
 
@@ -33,22 +46,56 @@ router.post('/addRestaurant', async (req, res) => {
 });
 
 // Delete a restaurant and its reviews
-router.get('/deleteRestaurant', async (req, res) => {
+router.get('/deleteRestaurant/:restaurantId', async (req, res) => {
     console.log("Delete restaurant request");
-    let restaurantId = req.query.id;
-    if (restaurantId) {
-        try {
-            const success = await dbModel.deleteRestaurant(restaurantId);
-            if (success) {
-                res.redirect("/");
-            } else {
-                console.error("Error deleting from database");
-                res.render('error', { message: 'Error deleting from database' });
-            }
-        } catch (err) {
-            console.error("Error deleting from database", err);
+    const { restaurantId } = req.params;
+    try {
+        const success = await dbModel.deleteRestaurant(restaurantId);
+        if (success) {
+            res.redirect("/");
+        } else {
+            console.error("Error deleting from database");
             res.render('error', { message: 'Error deleting from database' });
         }
+    } catch (err) {
+        console.error("Error deleting from database", err);
+        res.render('error', { message: 'Error deleting from database' });
+    }
+});
+
+// Add a new review for a restaurant
+router.post('/addReview/:restaurantId', async (req, res) => {
+    console.log("Add review form submit");
+    const { restaurantId } = req.params;
+    try {
+        const success = await dbModel.addReview(req.body, restaurantId);
+        if (success) {
+            res.redirect(`/reviews/${restaurantId}`);
+        } else {
+            console.error("Error writing to database");
+            res.render('error', { message: "Error writing to database" });
+        }
+    } catch (err) {
+        console.error("Error writing to database", err);
+        res.render('error', { message: "Error writing to database" });
+    }
+});
+
+// Delete a review
+router.get('/deleteReview/:reviewId/:restaurantId', async (req, res) => {
+    console.log("Delete review request");
+    const { reviewId, restaurantId } = req.params;
+    try {
+        const success = await dbModel.deleteReview(reviewId);
+        if (success) {
+            res.redirect(`/reviews/${restaurantId}`);
+        } else {
+            console.error("Error deleting review from database");
+            res.render('error', { message: 'Error deleting review from database' });
+        }
+    } catch (err) {
+        console.error("Error deleting review from database", err);
+        res.render('error', { message: 'Error deleting review from database' });
     }
 });
 
