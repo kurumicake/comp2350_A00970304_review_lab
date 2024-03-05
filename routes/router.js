@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const dbModel = require('./databaseAccessLayer'); // Adjusted to use require for consistency
+const dbModel = require('../databaseAccessLayer'); // Adjusted to use require for consistency
 
 // Display all restaurants
 router.get('/', async (req, res) => {
