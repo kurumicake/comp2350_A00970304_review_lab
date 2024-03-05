@@ -77,7 +77,7 @@ router.post('/addReview/:restaurantId', async (req, res) => {
         details: req.body.details,
         rating: req.body.rating,
     };
-
+	console.log(reviewData)
     try {
         const success = await dbModel.addReview(reviewData);
         if (success) {
