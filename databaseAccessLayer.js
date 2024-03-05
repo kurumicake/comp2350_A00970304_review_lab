@@ -84,14 +84,13 @@ async function addReview(postData) {
         INSERT INTO review (restaurant_id, reviewer_name, details, rating)
         VALUES (:restaurantId, :reviewerName, :details, :rating);
     `;
-
     let params = {
         restaurantId: postData.restaurantId,
-        reviewerName: postData.reviewerName,
+        reviewerName: postData.reviewer_name,
         details: postData.details,
         rating: postData.rating,
     };
-    
+
     try {
         await database.query(sqlInsert, params);
         return true;
