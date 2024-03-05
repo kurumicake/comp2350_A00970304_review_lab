@@ -94,12 +94,12 @@ router.post('/addReview/:restaurantId', async (req, res) => {
 
 // Delete a review
 router.get('/deleteReview/:reviewId/:restaurantId', async (req, res) => {
-    console.log("Delete review request");
     const { reviewId, restaurantId } = req.params;
     try {
         const success = await dbModel.deleteReview(reviewId);
         if (success) {
-            res.redirect(`/reviews/${restaurantId}`);
+
+            res.redirect(`/reviews?restaurantId=${restaurantId}`);
         } else {
             console.error("Error deleting review from database");
             res.render('error', { message: 'Error deleting review from database' });

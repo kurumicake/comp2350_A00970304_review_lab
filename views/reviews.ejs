@@ -28,7 +28,7 @@
                                     <td><%= review.details %></td>
                                     <td><%= review.rating %>/5</td>
                                     <td>
-                                        <a href="/deleteReview?reviewId=<%= review.review_id %>&restaurantId=<%= restaurantId %>" class="button is-danger is-small">
+                                        <a href="/deleteReview/<%= review.review_id %>/<%= restaurantId %>" class="button is-danger is-small">
                                             <span class="icon">
                                                 <i class="fas fa-trash"></i>
                                             </span>

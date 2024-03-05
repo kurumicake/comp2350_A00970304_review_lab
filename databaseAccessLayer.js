@@ -103,17 +103,12 @@ async function addReview(postData) {
 
 
 async function deleteReview(reviewId) {
-    let sqlDeleteReview = `
-        DELETE FROM review
-        WHERE review_id = :reviewId
-    `;
-    
+    let sqlDeleteReview = `DELETE FROM review WHERE review_id = :reviewId`;
     try {
         await database.query(sqlDeleteReview, { reviewId });
         return true;
-    }
-    catch (err) {
-        console.log(err);
+    } catch (err) {
+        console.log("Error deleting review from database:", err);
         return false;
     }
 }
