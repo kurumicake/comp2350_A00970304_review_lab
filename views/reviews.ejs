@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="bulma.min.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+<section class="section">
+    <div class="columns is-desktop is-vcentered">
+        <div class="column is-10 is-offset-1 notification is-info is-light box container">
+            <div class="title">Reviews</div>
+            <% if (locals.reviews) { %>
+                <div class="table-container">
+                    <table class="table is-bordered is-hoverable is-striped is-narrow">
+                        <thead>
+                            <tr>
+                                <th>Reviewer Name</th>
+                                <th>Details</th>
+                                <th>Rating</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% reviews.forEach(review => { %>
+                                <tr>
+                                    <td><%= review.reviewer_name %></td>
+                                    <td><%= review.details %></td>
+                                    <td><%= review.rating %>/5</td>
+                                    <td>
+                                        <a href="/deleteReview?reviewId=<%= review.review_id %>&restaurantId=<%= restaurantId %>" class="button is-danger is-small">
+                                            <span class="icon">
+                                                <i class="fas fa-trash"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">Total Reviews: <%= reviews.length %></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            <% } else { %>
+                <p>No reviews available.</p>
+            <% } %>
+            <form action="/addReview?restaurantId=<%= restaurantId %>" method="post" class="mt-5">
+                <div class="title">Add New Review</div>
+                <div class="field">
+                    <label class="label">Reviewer Name</label>
+                    <div class="control">
+                        <input class="input" type="text" name="reviewer_name" placeholder="Your Name" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Details</label>
+                    <div class="control">
+                        <textarea class="textarea" name="details" placeholder="Your review details" required></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Rating</label>
+                    <div class="control">
+                        <input class="input" type="number" name="rating" min="0" max="5" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="submit" class="button is-link">Submit Review</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>
