@@ -23,6 +23,7 @@ router.get('/reviews', async (req, res) => {
 
     try {
         const reviews = await dbModel.getReviewsByRestaurant(restaurantId);
+		console.log(reviews);
         res.render('reviews', { reviews, restaurantId }); // Assuming you have a 'reviews.ejs' template
     } catch (err) {
         console.error("Error reading reviews from database", err);
